@@ -161,10 +161,12 @@
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
     transition: color 0.2s ease;
 
     &:hover {
       color: #4f46e5;
+      text-decoration: underline;
     }
   }
 }
@@ -235,6 +237,123 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+// Estilos para recuperação de senha
+.recovery-form {
+  .form-group {
+    margin-bottom: 24px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+  }
+}
+
+.recovery-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 14px;
+
+  &.message-success {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+
+    .message-icon {
+      color: #059669;
+    }
+  }
+
+  &.message-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+
+    .message-icon {
+      color: #dc2626;
+    }
+  }
+
+  .message-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .recovery-button {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+
+    .loading-spinner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      svg {
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+
+  .back-to-login {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+.btn-secondary {
+  background: #f9fafb;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+
+  &:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 }
 

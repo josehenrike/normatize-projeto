@@ -27,7 +27,8 @@
     </div>
 
     <!-- Formulário de login -->
-    <div class="login-content">
+    <div class="login-content"
+         *ngIf="!showForgotPassword">
       <div class="login-title">
         <h1>Entrar na sua conta</h1>
         <p>Entre para continuar formatando seus documentos</p>
@@ -65,7 +66,7 @@
             Lembrar de mim
           </label>
 
-          <a href="#"
+          <a (click)="showForgotPasswordForm($event)"
              class="forgot-password">Esqueceu a senha?</a>
         </div>
 
@@ -105,6 +106,107 @@
       <div class="signup-link">
         <p>Ainda não tem uma conta? <a (click)="navigateToRegister($event)">Criar conta gratuita</a></p>
       </div>
+    </div>
+
+    <!-- Formulário de recuperação de senha -->
+    <div class="login-content"
+         *ngIf="showForgotPassword">
+      <div class="login-title">
+        <h1>Recuperar senha</h1>
+        <p>Digite seu email para receber instruções de recuperação</p>
+      </div>
+
+      <form (ngSubmit)="sendRecoveryEmail()"
+            class="recovery-form">
+        <div class="form-group">
+          <label for="recovery-email">E-mail</label>
+          <input type="email"
+                 id="recovery-email"
+                 name="recovery-email"
+                 [(ngModel)]="forgotPasswordEmail"
+                 placeholder="Digite seu e-mail"
+                 required
+                 autocomplete="email" />
+        </div>
+
+        <!-- Mensagem de feedback -->
+        <div class="recovery-message"
+             *ngIf="recoveryMessage"
+             [ngClass]="'message-' + recoveryMessageType">
+          <div class="message-icon">
+            <svg *ngIf="recoveryMessageType === 'success'"
+                 width="20"
+                 height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <svg *ngIf="recoveryMessageType === 'error'"
+                 width="20"
+                 height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12"
+                      cy="12"
+                      r="9"
+                      stroke="currentColor"
+                      stroke-width="2" />
+              <path d="M15 9L9 15M9 9L15 15"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+          </div>
+          <p>{{ recoveryMessage }}</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit"
+                  class="btn btn-primary recovery-button"
+                  [disabled]="!forgotPasswordEmail || isRecoveryLoading">
+            <span *ngIf="!isRecoveryLoading">Enviar instruções</span>
+            <span *ngIf="isRecoveryLoading"
+                  class="loading-spinner">
+              <svg width="20"
+                   height="20"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        opacity="0.3" />
+                <path d="M12 2v4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round">
+                  <animateTransform attributeName="transform"
+                                    type="rotate"
+                                    values="0 12 12;360 12 12"
+                                    dur="1s"
+                                    repeatCount="indefinite" />
+                </path>
+              </svg>
+              Enviando...
+            </span>
+          </button>
+
+          <button type="button"
+                  class="btn btn-secondary back-to-login"
+                  (click)="hideForgotPasswordForm()">
+            Voltar ao login
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

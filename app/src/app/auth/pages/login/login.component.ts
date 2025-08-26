@@ -15,6 +15,13 @@ export class LoginComponent {
   password: string = '';
   isLoading: boolean = false;
 
+  // Estados para recuperação de senha
+  showForgotPassword: boolean = false;
+  forgotPasswordEmail: string = '';
+  isRecoveryLoading: boolean = false;
+  recoveryMessage: string = '';
+  recoveryMessageType: 'success' | 'error' | '' = '';
+
   constructor(private router: Router) { }
 
   onSubmit() {
@@ -40,5 +47,52 @@ export class LoginComponent {
       event.preventDefault();
     }
     this.router.navigate(['/register']);
+  }
+
+  // Métodos para recuperação de senha
+  showForgotPasswordForm(event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
+    this.showForgotPassword = true;
+    this.recoveryMessage = '';
+    this.recoveryMessageType = '';
+  }
+
+  hideForgotPasswordForm() {
+    this.showForgotPassword = false;
+    this.forgotPasswordEmail = '';
+    this.recoveryMessage = '';
+    this.recoveryMessageType = '';
+  }
+
+  sendRecoveryEmail() {
+    if (!this.forgotPasswordEmail) {
+      return;
+    }
+
+    this.isRecoveryLoading = true;
+    this.recoveryMessage = '';
+
+    // Simular envio de email (substituir por lógica real)
+    setTimeout(() => {
+      this.isRecoveryLoading = false;
+
+      // Validação básica de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.forgotPasswordEmail)) {
+        this.recoveryMessage = 'Por favor, insira um email válido.';
+        this.recoveryMessageType = 'error';
+        return;
+      }
+
+      this.recoveryMessage = 'Instruções de recuperação foram enviadas para seu email!';
+      this.recoveryMessageType = 'success';
+
+      // Voltar ao formulário de login após 3 segundos
+      setTimeout(() => {
+        this.hideForgotPasswordForm();
+      }, 3000);
+    }, 1500);
   }
 }
