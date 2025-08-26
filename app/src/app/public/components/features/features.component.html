@@ -1,0 +1,32 @@
+<section id="features"
+         class="benefits">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Por que escolher o NORMATIZE?
+      </h2>
+      <p class="section-subtitle">
+        Descubra as vantagens que fazem do NORMATIZE a escolha preferida
+        de estudantes e pesquisadores em todo o Brasil
+      </p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card"
+           *ngFor="let benefit of benefits; let i = index">
+        <div class="card">
+          <div class="icon-wrapper">
+            <span class="benefit-icon"
+                  [innerHTML]="benefit.icon"></span>
+          </div>
+          <h3 class="benefit-title">
+            {{ benefit.title }}
+          </h3>
+          <p class="benefit-description">
+            {{ benefit.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

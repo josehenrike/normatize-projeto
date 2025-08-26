@@ -1,0 +1,50 @@
+<section id="pricing"
+         class="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Escolha seu Plano
+      </h2>
+      <p class="section-subtitle">
+        Encontre o plano perfeito para suas necessidades acadêmicas.
+        Comece gratuitamente e upgrade quando precisar de mais recursos
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card"
+           *ngFor="let plan of plans; let i = index"
+           [class.popular]="plan.popular">
+        <div class="card">
+          <div class="popular-badge"
+               *ngIf="plan.popular">
+            <span>Mais Popular</span>
+          </div>
+
+          <div class="plan-header">
+            <h3 class="plan-name">{{ plan.name }}</h3>
+            <p class="plan-description">{{ plan.description }}</p>
+            <div class="plan-price">
+              <span class="price">{{ plan.price }}</span>
+              <span class="period">{{ plan.period }}</span>
+            </div>
+          </div>
+
+          <ul class="features-list">
+            <li class="feature-item"
+                *ngFor="let feature of plan.features">
+              <span class="check-icon">✓</span>
+              <span class="feature-text">{{ feature }}</span>
+            </li>
+          </ul>
+
+          <button class="btn"
+                  [class.btn-primary]="plan.popular"
+                  [class.btn-outline]="!plan.popular">
+            {{ plan.cta }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

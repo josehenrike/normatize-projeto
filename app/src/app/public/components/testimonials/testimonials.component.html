@@ -1,0 +1,37 @@
+<section id="testimonials"
+         class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">O que nossos usuários dizem</h2>
+      <p class="section-subtitle">
+        Milhares de estudantes e professores já confiam no NORMATIZE para
+        formatação perfeita de seus documentos acadêmicos
+      </p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card"
+           *ngFor="let testimonial of testimonials">
+        <div class="card">
+          <div class="testimonial-header">
+            <div class="avatar"
+                 [innerHTML]="testimonial.avatar"></div>
+            <div class="user-info">
+              <h4 class="user-name">{{ testimonial.name }}</h4>
+              <p class="user-role">{{ testimonial.role }}</p>
+              <p class="user-institution">{{ testimonial.institution }}</p>
+            </div>
+            <div class="rating">
+              <span class="star"
+                    *ngFor="let star of getStars(testimonial.rating)">⭐</span>
+            </div>
+          </div>
+
+          <div class="testimonial-content">
+            <p class="quote">"{{ testimonial.content }}"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

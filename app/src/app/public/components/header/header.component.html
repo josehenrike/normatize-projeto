@@ -1,0 +1,46 @@
+<header class="header">
+  <div class="container">
+    <div class="brand">
+      <div class="logo-icon">
+        <span class="logo-text">N</span>
+      </div>
+      <span class="brand-name">NORMATIZE</span>
+    </div>
+
+    <nav class="nav"
+         [class.nav-open]="isMenuOpen">
+      <a href="#how-it-works"
+         class="nav-link"
+         (click)="scrollToSection('how-it-works', $event)">
+        Como Funciona
+      </a>
+      <a href="#features"
+         class="nav-link"
+         (click)="scrollToSection('features', $event)">
+        Benefícios
+      </a>
+      <a href="#pricing"
+         class="nav-link"
+         (click)="scrollToSection('pricing', $event)">
+        Planos
+      </a>
+    </nav>
+
+    <div class="actions">
+      <button class="btn btn-ghost">
+        Entrar
+      </button>
+      <button class="btn btn-primary">
+        Começar Grátis
+      </button>
+    </div>
+
+    <button class="menu-toggle"
+            (click)="toggleMenu()"
+            [class.menu-open]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
