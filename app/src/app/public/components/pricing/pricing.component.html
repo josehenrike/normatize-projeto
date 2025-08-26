@@ -40,7 +40,8 @@
 
           <button class="btn"
                   [class.btn-primary]="plan.popular"
-                  [class.btn-outline]="!plan.popular">
+                  [class.btn-outline]="!plan.popular"
+                  (click)="onPlanSelect(plan)">
             {{ plan.cta }}
           </button>
         </div>

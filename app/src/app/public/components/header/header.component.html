@@ -24,13 +24,27 @@
          (click)="scrollToSection('pricing', $event)">
         Planos
       </a>
+
+      <!-- Botões para versão mobile -->
+      <div class="mobile-actions">
+        <button class="btn btn-ghost mobile-btn"
+                (click)="navigateToLogin()">
+          Entrar
+        </button>
+        <button class="btn btn-primary mobile-btn"
+                (click)="navigateToRegister()">
+          Começar Grátis
+        </button>
+      </div>
     </nav>
 
     <div class="actions">
-      <button class="btn btn-ghost">
+      <button class="btn btn-ghost"
+              (click)="navigateToLogin()">
         Entrar
       </button>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary"
+              (click)="navigateToRegister()">
         Começar Grátis
       </button>
     </div>

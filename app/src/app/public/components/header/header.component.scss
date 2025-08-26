@@ -143,6 +143,47 @@
     }
   }
 
+  // Estilos para botões mobile (ocultos no desktop)
+  .mobile-actions {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+
+    .mobile-btn {
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      width: 100%;
+
+      &.btn-ghost {
+        background: transparent;
+        color: var(--foreground);
+        border: 1px solid var(--border);
+
+        &:hover {
+          background: var(--accent);
+          color: var(--accent-foreground);
+        }
+      }
+
+      &.btn-primary {
+        background: var(--primary);
+        color: var(--primary-foreground);
+
+        &:hover {
+          background: rgba(59, 130, 246, 0.9);
+        }
+      }
+    }
+  }
+
   @media (max-width: 767px) {
     .nav {
       position: absolute;
@@ -169,6 +210,10 @@
 
     .actions {
       display: none;
+    }
+
+    .mobile-actions {
+      display: flex;
     }
   }
 }

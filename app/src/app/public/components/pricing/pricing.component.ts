@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Plan {
   name: string;
@@ -19,6 +20,8 @@ interface Plan {
   styleUrls: ['./pricing.component.scss']
 })
 export class PricingComponent {
+  constructor(private router: Router) { }
+
   plans: Plan[] = [
     {
       name: "Gratuito",
@@ -71,4 +74,13 @@ export class PricingComponent {
       popular: false
     }
   ];
+
+  onPlanSelect(plan: Plan): void {
+    if (plan.name === 'Gratuito') {
+      this.router.navigate(['/register']);
+    } else {
+      // Para planos pagos, redirecionar para registro com parâmetro do plano
+      this.router.navigate(['/register'], { queryParams: { plan: plan.name.toLowerCase() } });
+    }
+  }
 }

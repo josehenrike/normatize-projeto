@@ -1,0 +1,140 @@
+<div class="register-container">
+  <div class="register-card">
+    <!-- Header da página de registro -->
+    <div class="register-header">
+      <button class="back-button"
+              (click)="goBack()"
+              aria-label="Voltar">
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M12 19L5 12L12 5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <div class="brand">
+        <div class="logo-icon">
+          <span class="logo-text">N</span>
+        </div>
+        <span class="brand-name">NORMATIZE</span>
+      </div>
+    </div>
+
+    <!-- Formulário de registro -->
+    <div class="register-content">
+      <div class="register-title">
+        <h1>Criar conta gratuita</h1>
+        <p>Comece a formatar seus documentos agora mesmo</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()"
+            class="register-form">
+        <div class="form-group">
+          <label for="name">Nome completo</label>
+          <input type="text"
+                 id="name"
+                 name="name"
+                 [(ngModel)]="name"
+                 placeholder="Digite seu nome completo"
+                 required
+                 autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email"
+                 id="email"
+                 name="email"
+                 [(ngModel)]="email"
+                 placeholder="Digite seu e-mail"
+                 required
+                 autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password"
+                 id="password"
+                 name="password"
+                 [(ngModel)]="password"
+                 placeholder="Crie uma senha forte"
+                 required
+                 autocomplete="new-password" />
+          <small class="password-hint">Mínimo 8 caracteres</small>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar senha</label>
+          <input type="password"
+                 id="confirmPassword"
+                 name="confirmPassword"
+                 [(ngModel)]="confirmPassword"
+                 placeholder="Confirme sua senha"
+                 required
+                 autocomplete="new-password"
+                 [class.error]="confirmPassword && !passwordsMatch()" />
+          <small class="error-message"
+                 *ngIf="confirmPassword && !passwordsMatch()">
+            As senhas não coincidem
+          </small>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox"
+                   name="acceptTerms"
+                   [(ngModel)]="acceptTerms"
+                   required>
+            <span class="checkmark"></span>
+            Aceito os <a href="/terms"
+               target="_blank">termos de uso</a> e
+            <a href="/privacy"
+               target="_blank">política de privacidade</a>
+          </label>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary register-button"
+                [disabled]="!isFormValid() || isLoading">
+          <span *ngIf="!isLoading">Criar Conta Gratuita</span>
+          <span *ngIf="isLoading"
+                class="loading-spinner">
+            <svg width="20"
+                 height="20"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      opacity="0.3" />
+              <path d="M12 2v4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round">
+                <animateTransform attributeName="transform"
+                                  type="rotate"
+                                  values="0 12 12;360 12 12"
+                                  dur="1s"
+                                  repeatCount="indefinite" />
+              </path>
+            </svg>
+            Criando conta...
+          </span>
+        </button>
+      </form>
+
+      <div class="login-link">
+        <p>Já tem uma conta? <a (click)="navigateToLogin($event)">Entrar</a></p>
+      </div>
+    </div>
+  </div>
+</div>
