@@ -1,0 +1,305 @@
+<div class="profile-container">
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="logo-icon">
+          <span class="logo-text">N</span>
+        </div>
+        <span class="brand-name">NORMATIZE</span>
+      </div>
+
+      <nav class="nav"
+           [class.nav-open]="isMenuOpen">
+        <a class="nav-link"
+           (click)="navigateToSection('format')">
+          Formatação ABNT
+        </a>
+
+        <!-- Menu mobile com informações do usuário -->
+        <div class="mobile-user-info"
+             *ngIf="user">
+          <div class="user-details">
+            <span class="user-name">{{ user.name }}</span>
+            <span class="plan-info">Plano: {{ getUserPlan() }}</span>
+          </div>
+
+          <div class="mobile-menu-items">
+            <button class="btn btn-ghost mobile-btn"
+                    (click)="navigateToProfile()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                <circle cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+              </svg>
+              Meu Perfil
+            </button>
+
+            <button class="btn btn-ghost mobile-btn"
+                    (click)="navigateToPlans()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <rect x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="16"
+                      y1="2"
+                      x2="16"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="8"
+                      y1="2"
+                      x2="8"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="3"
+                      y1="10"
+                      x2="21"
+                      y2="10"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <path d="M8 14H16M8 18H12"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round" />
+              </svg>
+              Planos
+            </button>
+
+            <button class="btn btn-ghost mobile-btn logout-btn"
+                    (click)="logout()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+              </svg>
+              Sair
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="actions">
+        <div class="user-menu"
+             *ngIf="user">
+          <button class="user-button"
+                  (click)="toggleUserMenu()">
+            <span class="user-name">{{ user.name }}</span>
+            <svg width="16"
+                 height="16"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+                 [class.rotated]="isUserMenuOpen">
+              <polyline points="6,9 12,15 18,9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="user-dropdown"
+               [class.open]="isUserMenuOpen">
+            <a class="dropdown-item"
+               (click)="navigateToProfile()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                <circle cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+              </svg>
+              Meu Perfil
+            </a>
+
+            <a class="dropdown-item"
+               (click)="navigateToPlans()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <rect x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="16"
+                      y1="2"
+                      x2="16"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="8"
+                      y1="2"
+                      x2="8"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="3"
+                      y1="10"
+                      x2="21"
+                      y2="10"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <path d="M8 14H16M8 18H12"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round" />
+              </svg>
+              Ver Planos
+            </a>
+
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item logout-item"
+               (click)="logout()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+              </svg>
+              Sair
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <button class="menu-toggle"
+              (click)="toggleMenu()"
+              [class.menu-open]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="profile-main">
+    <div class="profile-card">
+      <div class="avatar-section">
+        <div class="avatar">
+          <svg width="64"
+               height="64"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+            <circle cx="12"
+                    cy="7"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="user-details">
+        <div class="field-group">
+          <label>Nome</label>
+          <div class="field-value">{{ user?.name }}</div>
+        </div>
+
+        <div class="field-group">
+          <label>Email</label>
+          <div class="field-value">{{ user?.email }}</div>
+        </div>
+
+        <div class="field-group">
+          <label>Plano Atual</label>
+          <div class="field-value">
+            <span class="plan-badge">{{ getUserPlan() }}</span>
+            <button class="btn btn-outline btn-sm"
+                    (click)="navigateToPlans()">
+              Ver Planos
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn btn-primary"
+                (click)="openChangePassword()">
+          <svg width="16"
+               height="16"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect x="3"
+                  y="11"
+                  width="18"
+                  height="10"
+                  rx="2"
+                  ry="2"
+                  stroke="currentColor"
+                  stroke-width="2" />
+            <circle cx="12"
+                    cy="16"
+                    r="1"
+                    stroke="currentColor"
+                    stroke-width="2" />
+            <path d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                  stroke="currentColor"
+                  stroke-width="2" />
+          </svg>
+          Alterar Senha
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   isLoading: boolean = false;
+  loginError: string = '';
 
   // Estados para recuperação de senha
   showForgotPassword: boolean = false;
@@ -22,19 +24,33 @@ export class LoginComponent {
   recoveryMessage: string = '';
   recoveryMessageType: 'success' | 'error' | '' = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   onSubmit() {
     if (this.email && this.password) {
       this.isLoading = true;
+      this.loginError = '';
 
-      // Simular login (substituir por lógica real de autenticação)
-      setTimeout(() => {
-        this.isLoading = false;
-        console.log('Login realizado:', { email: this.email, password: this.password });
-        // Redirecionar para dashboard ou página principal após login
-        this.router.navigate(['/dashboard']);
-      }, 1500);
+      this.authService.login({ email: this.email, password: this.password })
+        .subscribe({
+          next: (result) => {
+            this.isLoading = false;
+            if (result.success) {
+              console.log('Login realizado com sucesso:', result.user);
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.loginError = result.message || 'Erro no login';
+            }
+          },
+          error: (error) => {
+            this.isLoading = false;
+            this.loginError = 'Erro interno do servidor';
+            console.error('Erro no login:', error);
+          }
+        });
     }
   }
 
@@ -74,25 +90,26 @@ export class LoginComponent {
     this.isRecoveryLoading = true;
     this.recoveryMessage = '';
 
-    // Simular envio de email (substituir por lógica real)
-    setTimeout(() => {
-      this.isRecoveryLoading = false;
+    this.authService.sendPasswordRecovery(this.forgotPasswordEmail)
+      .subscribe({
+        next: (result) => {
+          this.isRecoveryLoading = false;
+          this.recoveryMessage = result.message;
+          this.recoveryMessageType = result.success ? 'success' : 'error';
 
-      // Validação básica de email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.forgotPasswordEmail)) {
-        this.recoveryMessage = 'Por favor, insira um email válido.';
-        this.recoveryMessageType = 'error';
-        return;
-      }
-
-      this.recoveryMessage = 'Instruções de recuperação foram enviadas para seu email!';
-      this.recoveryMessageType = 'success';
-
-      // Voltar ao formulário de login após 3 segundos
-      setTimeout(() => {
-        this.hideForgotPasswordForm();
-      }, 3000);
-    }, 1500);
+          if (result.success) {
+            // Voltar ao formulário de login após 3 segundos
+            setTimeout(() => {
+              this.hideForgotPasswordForm();
+            }, 3000);
+          }
+        },
+        error: (error) => {
+          this.isRecoveryLoading = false;
+          this.recoveryMessage = 'Erro interno do servidor';
+          this.recoveryMessageType = 'error';
+          console.error('Erro na recuperação:', error);
+        }
+      });
   }
 }

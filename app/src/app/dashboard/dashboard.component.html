@@ -1,0 +1,356 @@
+<div class="dashboard-container">
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="logo-icon">
+          <span class="logo-text">N</span>
+        </div>
+        <span class="brand-name">NORMATIZE</span>
+      </div>
+
+      <nav class="nav"
+           [class.nav-open]="isMenuOpen">
+        <a class="nav-link"
+           (click)="navigateToSection('format')">
+          Formatação ABNT
+        </a>
+
+        <!-- Menu mobile com informações do usuário -->
+        <div class="mobile-user-info"
+             *ngIf="user">
+          <div class="user-details">
+            <span class="user-name">{{ user.name }}</span>
+            <span class="plan-info">Plano: {{ getUserPlan() }}</span>
+          </div>
+
+          <div class="mobile-menu-items">
+            <button class="btn btn-ghost mobile-btn"
+                    (click)="navigateToProfile()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                <circle cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+              </svg>
+              Meu Perfil
+            </button>
+
+            <button class="btn btn-ghost mobile-btn"
+                    (click)="navigateToPlans()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <rect x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="16"
+                      y1="2"
+                      x2="16"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="8"
+                      y1="2"
+                      x2="8"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="3"
+                      y1="10"
+                      x2="21"
+                      y2="10"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <path d="M8 14H16M8 18H12"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round" />
+              </svg>
+              Planos
+            </button>
+
+            <button class="btn btn-ghost mobile-btn logout-btn"
+                    (click)="logout()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+              </svg>
+              Sair
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="actions">
+        <div class="user-menu"
+             *ngIf="user">
+          <button class="user-button"
+                  (click)="toggleUserMenu()">
+            <span class="user-name">{{ user.name }}</span>
+            <svg width="16"
+                 height="16"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+                 [class.rotated]="isUserMenuOpen">
+              <polyline points="6,9 12,15 18,9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="user-dropdown"
+               [class.open]="isUserMenuOpen">
+            <a class="dropdown-item"
+               (click)="navigateToProfile()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                <circle cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+              </svg>
+              Meu Perfil
+            </a>
+
+            <a class="dropdown-item"
+               (click)="navigateToPlans()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <rect x="3"
+                      y="4"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="16"
+                      y1="2"
+                      x2="16"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="8"
+                      y1="2"
+                      x2="8"
+                      y2="6"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <line x1="3"
+                      y1="10"
+                      x2="21"
+                      y2="10"
+                      stroke="currentColor"
+                      stroke-width="2" />
+                <path d="M8 14H16M8 18H12"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round" />
+              </svg>
+              Ver Planos
+              <span class="plan-badge">{{ getUserPlan() }}</span>
+            </a>
+
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item logout-item"
+               (click)="logout()">
+              <svg width="16"
+                   height="16"
+                   viewBox="0 0 24 24"
+                   fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9M16 17L21 12M21 12L16 7M21 12H9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+              </svg>
+              Sair
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <button class="menu-toggle"
+              (click)="toggleMenu()"
+              [class.menu-open]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="welcome-section">
+      <h1>Olá, {{ user?.name }}!</h1>
+      <p>Formate seus documentos acadêmicos nas normas ABNT de forma simples e rápida.</p>
+    </div>
+
+    <div class="format-section">
+      <div class="format-card">
+        <div class="format-icon">
+          <svg width="48"
+               height="48"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+            <polyline points="14,2 14,8 20,8"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+            <line x1="16"
+                  y1="13"
+                  x2="8"
+                  y2="13"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+            <line x1="16"
+                  y1="17"
+                  x2="8"
+                  y2="17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+            <polyline points="10,9 9,9 8,9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h2>Formatação ABNT</h2>
+        <p>Faça upload do seu documento e formate automaticamente nas normas ABNT</p>
+
+        <div class="upload-area">
+          <input type="file"
+                 id="document-upload"
+                 accept=".doc,.docx,.txt"
+                 hidden>
+          <label for="document-upload"
+                 class="upload-label">
+            <svg width="24"
+                 height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+              <polyline points="7,10 12,15 17,10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+              <line x1="12"
+                    y1="15"
+                    x2="12"
+                    y2="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            Selecionar Documento
+          </label>
+        </div>
+
+        <div class="format-actions">
+          <button class="btn btn-primary"
+                  disabled>
+            <svg width="16"
+                 height="16"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 11H15M9 15H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L19.7071 9.70711C19.8946 9.89464 20 10.149 20 10.4142V19C20 20.1046 19.1046 21 18 21H17ZM17 21V11H13V7H7V19H17Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            Formatar Documento
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📋 Normas ABNT Suportadas</h3>
+      <div class="norms-grid">
+        <div class="norm-item">
+          <strong>Formatação Geral</strong>
+          <span>Margens, fonte, espaçamento</span>
+        </div>
+        <div class="norm-item">
+          <strong>Citações</strong>
+          <span>Diretas e indiretas</span>
+        </div>
+        <div class="norm-item">
+          <strong>Referências</strong>
+          <span>Bibliografia automática</span>
+        </div>
+        <div class="norm-item">
+          <strong>Sumário</strong>
+          <span>Geração automática</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
